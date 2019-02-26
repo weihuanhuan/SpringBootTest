@@ -1,6 +1,7 @@
 package hello;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.rowset.serial.SerialArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class SessionController {
 
 
-    private final  Logger logger = Logger.getLogger(this.getClass().getName());
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
 
     private void sessionOperations(HttpServletRequest request) {
@@ -39,6 +41,35 @@ public class SessionController {
         return modelAndView;
     }
 
+    @RequestMapping("/sessionset")
+    public ModelAndView doSessionSet(HttpServletRequest request) throws IOException {
+        System.out.println("-------------doSessionSet------------------");
+
+        HttpSession session = request.getSession();
+        Info info = new Info("name", "addr");
+        session.setAttribute("info", info);
+
+        infoPrint(request);
+        ModelAndView modelAndView = new ModelAndView("session");
+        return modelAndView;
+    }
+
+    @RequestMapping("/sessionmod")
+    public ModelAndView doSessionMod(HttpServletRequest request) throws IOException {
+        System.out.println("-------------doSessionMod------------------");
+
+        HttpSession session = request.getSession();
+        Info info = (Info) session.getAttribute("info");
+        info.setName("modname");
+        info.setAddr("modaddr");
+        // set之后，再次从session中取得改对象时，其值仍为旧值，
+        // Spring无法感知session属性中对象内容的变化。
+        // 除非调用显示的getAttribute removeAttribute 之类的明显要修改值的操作
+        infoPrint(request);
+        ModelAndView modelAndView = new ModelAndView("session");
+        return modelAndView;
+    }
+
     @PostMapping("/session")
     public String doSessionPost(HttpServletRequest request, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -46,7 +77,7 @@ public class SessionController {
         String attributeName = request.getParameter("attributeName");
         String attributeValue = request.getParameter("attributeValue");
         if (!(isBlank(attributeName) || isBlank(attributeValue))) {
-            request.getSession().setAttribute(attributeName, attributeValue);
+//            request.getSession().setAttribute(attributeName, attributeValue);
         }
 
         infoPrint(request);
@@ -73,7 +104,7 @@ public class SessionController {
         Enumeration<String> attributeNames = session.getAttributeNames();
         while (attributeNames.hasMoreElements()) {
             String key = attributeNames.nextElement();
-            String value = (String) session.getAttribute(key);
+            Object value = session.getAttribute(key);
             System.out.println("Session Attribute:" + key + "=" + value);
         }
 
@@ -130,4 +161,39 @@ public class SessionController {
 //    No New ID:ba0f9129-9639-4559-a6af-29ba261cd9e5
 //    SESSION Cookie:SESSION=YmEwZjkxMjktOTYzOS00NTU5LWE2YWYtMjliYTI2MWNkOWU
 //第四次（未过期）:服务器使用旧的session v2，浏览器使用上次新的cookie v2
+}
+
+
+class Info implements Serializable {
+
+    String name;
+    String addr;
+
+    public Info(String name, String addr) {
+
+        this.name = name;
+        this.addr = addr;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddr() {
+        return addr;
+    }
+
+
+    public void setAddr(String addr) {
+        this.addr = addr;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + name.toString() + ":" + addr.toString() + "]";
+    }
 }
