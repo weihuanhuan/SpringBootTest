@@ -12,8 +12,10 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 /**
  * Created by JasonFitch on 2/14/2019.
  */
+//JF 不知道本 WebMvcConfigurer 接口的使用方法，其2.X的接口中都是default方法，1.X则是抽象的
+//    即使不实现这个类，spring boot 也有默认的配置来实现视图解析，那么默认是如何配置的呢？
 //@Configuration
-public class WebMvcConfig implements WebMvcConfigurer {
+public class WebMvcConfig /* implements WebMvcConfigurer  */ {
 
 //    @Override
 //    public void configureViewResolvers(ViewResolverRegistry registry) {
