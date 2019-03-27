@@ -5,6 +5,7 @@
 
     <groupId>org.springframework</groupId>
     <artifactId>SpringBootTest</artifactId>
+    <packaging>war</packaging>
     <version>0.1.0</version>
 
     <parent>
@@ -26,19 +27,19 @@
         </dependency>
 
         <!-- Spring session redis support-->
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.session</groupId>-->
+            <!--<artifactId>spring-session-data-redis</artifactId>-->
+        <!--</dependency>-->
 
         <!-- https://mvnrepository.com/artifact/io.lettuce/lettuce-core
             Spring 默认的策略会使用lettuce作为redis client，如若使用jedis需要一些特殊的修改。
         -->
-        <dependency>
-            <groupId>io.lettuce</groupId>
-            <artifactId>lettuce-core</artifactId>
-            <version>5.1.4.RELEASE</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>io.lettuce</groupId>-->
+            <!--<artifactId>lettuce-core</artifactId>-->
+            <!--<version>5.1.4.RELEASE</version>-->
+        <!--</dependency>-->
 
         <!--&lt;!&ndash; https://mvnrepository.com/artifact/redis.clients/jedis &ndash;&gt;-->
         <!--<dependency>-->
@@ -82,6 +83,13 @@
 
     <build>
         <plugins>
+            <!--打包成war使用的插件，同时徐指定打包格式为war，否则没用-->
+            <!--如果仅仅是打包为spring boot的可执行jar，无需指定打包格式，默认就是jar-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+            </plugin>
+            <!--spring boot的插件，将mvn打包之后的再打包为可启动的jar或者是war-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
