@@ -15,6 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
 //java.lang.annotation.Repeatable这个原注解使得一个注解可以多次在同一位置使用，同时可以按照数组的形式,方便的将多个要扫描的包写在一起，
 //@ComponentScan({"config", "hello"})
 
+//指定要扫描的servlet组件filter的包，否则也不会加载该包下的filter。
 //@ServletComponentScan("filter")
 public class Application {
 
