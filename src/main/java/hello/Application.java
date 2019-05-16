@@ -3,11 +3,18 @@ package hello;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+//主要提供如下两个注解的功能，对于第一个注解，即使缺失这个注解启动时也会根据一定条件去猜测
+//org.springframework.boot.BeanDefinitionLoader.isComponent()这里是猜测的方法(spring boot 2.0.5)
+//@SpringBootConfiguration
+//但是第二个注解如果不去手动添加的话，自动配置便无法生效。
+//@EnableAutoConfiguration
 
 //指定扫描config包，否则不会实例化该包下的bean，便无法注册相应的配置项
 //@ComponentScan("config")
