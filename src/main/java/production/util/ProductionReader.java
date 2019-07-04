@@ -13,15 +13,17 @@ import org.springframework.core.io.Resource;
  */
 public class ProductionReader {
 
-    private String separator = "---";
+    public static final String DEFAULT_SEPARATOR = "---";
+
+    private String separator = DEFAULT_SEPARATOR;
     private Map<String, Production> cache = new HashMap<>();
     private Production emptyProduction = Production.EMPTY;
 
-    public Production contentToProduction(Resource resource, String name) {
-        return contentToProduction(resource, name, separator);
+    public Production contentToProduction(String name, Resource resource) {
+        return contentToProduction(name, resource, separator);
     }
 
-    private Production contentToProduction(Resource resource, String name, String separator) {
+    public Production contentToProduction(String name, Resource resource, String separator) {
         Production production = cache.get(name);
         if (production != null) {
             return production;
