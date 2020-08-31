@@ -95,25 +95,22 @@ public class SessionController {
         HttpSession session = request.getSession();
 
         if (session.isNew()) {
-            System.out.println("Is New ID:" + session.getId());
+            System.out.println("sessionID new:" + session.getId());
         } else {
-            System.out.println("No New ID:" + session.getId());
+            System.out.println("sessionID old:" + session.getId());
         }
 
         Enumeration<String> attributeNames = session.getAttributeNames();
         while (attributeNames.hasMoreElements()) {
             String key = attributeNames.nextElement();
             Object value = session.getAttribute(key);
-            System.out.println("Session Attribute:" + key + "=" + value);
+            System.out.println("session attr:" + key + "=" + value);
         }
 
         Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length > 0) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("SESSION")) {
-                    System.out.println("SESSION Cookie:" + cookie.getName() + "=" + cookie.getValue());
-                    break;
-                }
+                System.out.println("cookie info:" + cookie.getName() + "=" + cookie.getValue());
             }
         }
 

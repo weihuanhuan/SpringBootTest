@@ -25,8 +25,8 @@ import org.springframework.context.annotation.ComponentScan;
 //指定要扫描的servlet组件filter的包，否则也不会加载该包下的filter。
 //@ServletComponentScan("filter")
 
-//可是烧苗production包下的所有子包
-@ComponentScan({"hello", "production"})
+//可是扫描production包下的所有子包
+@ComponentScan({"hello", "production","controller"})
 public class Application {
 
     public static void main(String[] args) {
