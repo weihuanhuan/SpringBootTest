@@ -18,7 +18,8 @@ public class SessionConfig {
         DefaultCookieSerializer serializer = new DefaultCookieSerializer();
         serializer.setCookieName("JSESSIONID");
         serializer.setCookiePath("/");
-        serializer.setJvmRoute("ins1");
+        //spring session 中读取到的 jvm route 信息
+//        serializer.setJvmRoute("springJR");
         serializer.setUseBase64Encoding(false);
         return serializer;
     }

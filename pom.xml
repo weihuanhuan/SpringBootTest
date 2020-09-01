@@ -12,8 +12,8 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <!--parent 工程的版本不能属性化-->
-        <!--<version>1.5.18.RELEASE</version>-->
-        <version>2.0.5.RELEASE</version>
+        <version>1.5.18.RELEASE</version>
+        <!--<version>2.0.5.RELEASE</version>-->
     </parent>
 
     <properties>
@@ -37,26 +37,35 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--
+            springboot 1.x 简单的 spring session 实现,只用内存型可以直接引入他，无需 redis 等第三方存储
+            springboot 2.x 中该依赖更名，新名称对应于 spring-session-core ，
+                           由spring-session-data-redis间接引入，必须要一个第三方储存
+        -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.session</groupId>-->
+            <!--<artifactId>spring-session</artifactId>-->
+        <!--</dependency>-->
+
         <!-- Spring session redis support-->
         <dependency>
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-data-redis</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.lettuce</groupId>
-                    <artifactId>lettuce-core</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.lettuce/lettuce-core
-            Spring 默认的策略会使用lettuce作为redis client，如若使用jedis需要一些特殊的修改。
+            早起版本 springboot 默认的策略会使用lettuce作为redis client，如若使用jedis需要一些特殊的修改。
+            springboot 1.x/2.x 不知道从哪个版本开始 springboot 使用了 jedis 作为默认的 redis client 了。
         -->
         <!--<dependency>-->
             <!--<groupId>io.lettuce</groupId>-->
             <!--<artifactId>lettuce-core</artifactId>-->
         <!--</dependency>-->
 
+        <!-- 导入 redis 的相关依赖，
+             springboot 1.x 自动引入，因为通过 spring-session-data-redis 中已经间接的引入了相关的依赖了
+             springboot 2.x 需要主动导入 spring-session-data-redis 中移除了对其的相关依赖了
+        -->
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
