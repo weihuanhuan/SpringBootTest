@@ -15,13 +15,13 @@ public class SessionConfig {
 
     @Bean
     public CookieSerializer cookieSerializer() {
-        DefaultCookieSerializer serializer = new DefaultCookieSerializer();
-        serializer.setCookieName("JSESSIONID");
-        serializer.setCookiePath("/");
+        DefaultCookieSerializer defaultCookieSerializer = new DefaultCookieSerializer();
+        defaultCookieSerializer.setCookieName("JSESSIONID");
+        defaultCookieSerializer.setCookiePath("/");
         //spring session 中读取到的 jvm route 信息
-//        serializer.setJvmRoute("springJR");
-        serializer.setUseBase64Encoding(false);
-        return serializer;
+        defaultCookieSerializer.setJvmRoute("spring1");
+        defaultCookieSerializer.setUseBase64Encoding(false);
+        return defaultCookieSerializer;
     }
 
 }

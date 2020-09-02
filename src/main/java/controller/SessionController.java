@@ -92,25 +92,32 @@ public class SessionController {
     }
 
     private void infoPrint(HttpServletRequest request) {
+        System.out.println("---- session id info ----");
+
+        String requestedSessionId = request.getRequestedSessionId();
+        System.out.println("request.getRequestedSessionId(): " + requestedSessionId);
+
         HttpSession session = request.getSession();
+        String sessionId = session.getId();
+        System.out.println("session.getId(): " + sessionId);
 
-        if (session.isNew()) {
-            System.out.println("sessionID new:" + session.getId());
-        } else {
-            System.out.println("sessionID old:" + session.getId());
-        }
+        boolean sessionNew = session.isNew();
+        System.out.println("session.isNew(): " + sessionNew);
 
+
+        System.out.println("---- session attr info ----");
         Enumeration<String> attributeNames = session.getAttributeNames();
         while (attributeNames.hasMoreElements()) {
             String key = attributeNames.nextElement();
             Object value = session.getAttribute(key);
-            System.out.println("session attr:" + key + "=" + value);
+            System.out.println(key + "=" + value);
         }
 
+        System.out.println("---- cookie info ----");
         Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length > 0) {
             for (Cookie cookie : cookies) {
-                System.out.println("cookie info:" + cookie.getName() + "=" + cookie.getValue());
+                System.out.println(cookie.getName() + "=" + cookie.getValue());
             }
         }
 
