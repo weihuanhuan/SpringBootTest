@@ -2,6 +2,7 @@ package hello;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -26,7 +27,7 @@ import org.springframework.context.annotation.ComponentScan;
 //@ServletComponentScan("filter")
 
 //可是扫描production包下的所有子包
-@ComponentScan({"hello", "production","controller"})
+@ComponentScan({"hello", "production", "controller", "configuration"})
 public class Application {
 
     public static void main(String[] args) {
