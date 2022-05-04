@@ -36,3 +36,6 @@ dbembedded/
 !configuration/**/*.jar
 !ext/
 !ext/**/*.jar
+
+# gradle
+.gradle/
