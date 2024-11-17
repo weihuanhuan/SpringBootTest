@@ -132,6 +132,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--
+                    下面的编译错误是因为没有显示的指定 mainClass 属性使用哪个 class ，虽然 spring boot 插件默认会去找 main 方法所在的 class ，但是这里存在多个 main class ，他不清楚该使用哪一个
+                    [ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:2.0.5.RELEASE:repackage (default) on project SpringBootTest:
+                    Execution default of goal org.springframework.boot:spring-boot-maven-plugin:2.0.5.RELEASE:repackage failed:
+                    Unable to find a single main class from the following candidates
+                    [hello.Application, sample.mybatis.war.SampleWebApplication, sample.mybatis.xml.SampleXmlApplication] -> [Help 1]
+                -->
+                <configuration>
+                    <mainClass>hello.Application</mainClass>
+                </configuration>
             </plugin>
 
             <plugin>

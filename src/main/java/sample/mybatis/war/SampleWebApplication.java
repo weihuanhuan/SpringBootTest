@@ -18,7 +18,11 @@ package sample.mybatis.war;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+// spring rename the package for SpringBootServletInitializer
+// for spring 1.5.18.RELEASE
+// import org.springframework.boot.web.support.SpringBootServletInitializer;
+// for spring 2.0.5.RELEASE
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
  * 通过继承 SpringBootServletInitializer 来使得 spring boot application 可以按照传统的 war 打包模式运行在 servlet 服务器中。
