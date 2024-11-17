@@ -6,6 +6,7 @@
     <groupId>com.jasonfitch.test</groupId>
     <artifactId>SpringBootTest</artifactId>
     <packaging>jar</packaging>
+    <!-- <packaging>war</packaging> -->
     <version>0.1.0</version>
 
     <parent>
@@ -121,7 +122,7 @@
 
         <plugins>
 
-            <!--打包成war使用的插件，同时徐指定打包格式为war，否则没用-->
+            <!--打包成war使用的插件，同时需使用 <packaging>war</packaging> 指定打包格式为 war，否则没用-->
             <!--如果仅仅是打包为spring boot的可执行jar，无需指定打包格式，默认就是jar-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
